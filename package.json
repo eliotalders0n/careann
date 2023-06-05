@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Careann Backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server.js",
+    "server": "nodemon ./server.js"
+  },
+  "author": "Careann",
+  "license": "ISC",
+  "dependencies": {
+    "@stripe/react-stripe-js": "^1.16.1",
+    "aws-sdk": "^2.1175.0",
+    "bcrypt": "^5.1.0",
+    "cloudinary": "^1.31.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-async-handler": "^1.2.0",
+    "gridfs-stream": "^1.1.1",
+    "helmet": "^6.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "mailgun-js": "^0.22.0",
+    "mongoose": "^6.2.11",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-gridfs-storage": "^5.0.2",
+    "streamifier": "^0.1.1",
+    "stripe": "^11.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
