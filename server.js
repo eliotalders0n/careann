@@ -50,9 +50,6 @@ app.use((err, res, req, next) => {
   res.status(500).send({ message: err.message });
 });
 
-// Routes with files
-app.post("/auth/register", upload.single("picture"), register);
-
 const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
