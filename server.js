@@ -5,14 +5,11 @@ import cors from "cors";
 import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
-import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 import path from "path";
-import uploadRouter from "./routes/upload.js";
 import usersRouter from "./routes/usersRouter.js";
 import caregiverRouter from "./routes/caregiverRouter.js";
 import orderRouter from "./routes/orderRouter.js";
-import otpRouter from "./routes/otpRouter.js";
 import { register } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 
@@ -39,11 +36,9 @@ app.use(cors());
 app.get("/api/keys/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
-app.use("/api/upload", uploadRouter);
 app.use("/api/caregivers", caregiverRouter);
 app.use("/api/users", usersRouter);
 app.use("/api", orderRouter);
-app.use("/api", otpRouter);
 app.use("/api/auth", authRoutes);
 
 const __dirname = path.resolve();
