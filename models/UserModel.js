@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const careNeedsSchema = mongoose.Schema(
   {
@@ -63,6 +64,10 @@ const userSchema = mongoose.Schema(
     timestamps: false,
   }
 );
+
+userSchema.methods.comparePassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
 const User = mongoose.model("User", userSchema);
 export default User;

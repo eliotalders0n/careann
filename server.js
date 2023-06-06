@@ -37,7 +37,7 @@ app.get("/api/keys/paypal", (req, res) => {
 });
 app.use("/api/caregivers", caregiverRouter);
 app.use("/api/users", usersRouter);
-app.use("/api", orderRouter);
+app.use("/api/orders", orderRouter);
 app.use("/api/auth", authRoutes);
 
 const __dirname = path.resolve();
