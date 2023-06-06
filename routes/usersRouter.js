@@ -96,12 +96,23 @@ usersRouter.post("/create", async (req, res) => {
 // Update a user
 usersRouter.put("/update/:id", async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const { id } = req.params;
+    const { password, ...userData } = req.body;
+
+    // Hash the updated password if it exists
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      userData.password = hashedPassword;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, userData, {
       new: true,
     });
+
     if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
     }
+
     res.json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

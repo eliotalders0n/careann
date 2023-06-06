@@ -6,6 +6,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import path from "path";
+import session from "express-session";
 import usersRouter from "./routes/usersRouter.js";
 import caregiverRouter from "./routes/caregiverRouter.js";
 import orderRouter from "./routes/orderRouter.js";
