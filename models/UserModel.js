@@ -45,6 +45,7 @@ const healthStatusSchema = mongoose.Schema(
 
 const userSchema = mongoose.Schema(
   {
+    fid: { type: String, required: true, unique: true },
     firstName: { type: String, required: false },
     lastName: { type: String, required: false },
     age: { type: String, required: false },

@@ -6,29 +6,18 @@ const usersRouter = express.Router();
 
 // API routes
 
-// Login
-usersRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
+// firebase ID
+usersRouter.get("/:fid", async (req, res) => {
   try {
-    const user = await User.findOne({ email });
-
+    const user = await User.findOne({ fid: req.params.fid });
     if (!user) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(404).json({ error: "User not found" });
     }
 
-    // Validate password
-    const isMatch = await user.comparePassword(password);
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
-
-    // User login successful
-    return res.status(200).json({ message: "Login successful", user: user });
+    const { password, ...userData } = user.toObject();
+    res.json(userData);
   } catch (error) {
-    console.log(error); // Log the error for debugging purposes
-    return res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -57,7 +46,17 @@ usersRouter.get("/:id", async (req, res) => {
 
 //   Create new User
 usersRouter.post("/create", async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    phone,
+    address,
+    age,
+    gender,
+    fid,
+  } = req.body;
 
   try {
     // Check if user with the same email already exists
@@ -77,6 +76,11 @@ usersRouter.post("/create", async (req, res) => {
       firstName,
       lastName,
       email,
+      phone,
+      address,
+      age,
+      gender,
+      fid,
       password: hashedPassword,
     });
 
@@ -94,9 +98,9 @@ usersRouter.post("/create", async (req, res) => {
 });
 
 // Update a user
-usersRouter.put("/update/:id", async (req, res) => {
+usersRouter.put("/update/:fid", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { fid } = req.params;
     const { password, ...userData } = req.body;
 
     // Hash the updated password if it exists
@@ -105,7 +109,7 @@ usersRouter.put("/update/:id", async (req, res) => {
       userData.password = hashedPassword;
     }
 
-    const updatedUser = await User.findByIdAndUpdate(id, userData, {
+    const updatedUser = await User.findOneAndUpdate({ fid }, userData, {
       new: true,
     });
 
@@ -118,6 +122,7 @@ usersRouter.put("/update/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 // Delete a user
 usersRouter.delete("/delete/:id", async (req, res) => {
