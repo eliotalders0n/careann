@@ -101,7 +101,7 @@ usersRouter.post("/create", async (req, res) => {
 usersRouter.put("/update/:fid", async (req, res) => {
   try {
     const { fid } = req.params;
-    const { password, ...userData } = req.body;
+    const { password, care_needs, social, health_status, ...userData } = req.body;
 
     // Hash the updated password if it exists
     if (password) {
@@ -117,6 +117,12 @@ usersRouter.put("/update/:fid", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Update the care needs, social, and health status objects
+    updatedUser.care_needs = care_needs;
+    updatedUser.social = social;
+    updatedUser.health_status = health_status;
+    await updatedUser.save();
+    
     res.json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

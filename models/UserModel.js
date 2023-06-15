@@ -4,10 +4,8 @@ import bcrypt from "bcrypt";
 const careNeedsSchema = mongoose.Schema(
   {
     type_of_care: { type: String, required: false },
-    ammount: { type: String, required: false },
-    frequency: { type: Number, required: false },
+    frequency: { type: String, required: false },
     goals: { type: String, required: false },
-    care_plan: { type: String, required: false },
   },
   {
     timestamps: false,
@@ -18,8 +16,7 @@ const socialSchema = mongoose.Schema(
   {
     language: { type: String, required: false },
     religion: { type: String, required: false },
-    race: { type: Number, required: false },
-    family: { type: String, required: false },
+    race: { type: String, required: false },
   },
   {
     timestamps: false,
@@ -28,15 +25,10 @@ const socialSchema = mongoose.Schema(
 
 const healthStatusSchema = mongoose.Schema(
   {
-    medicalHistory: { type: String, required: false },
     currentMedication: { type: String, required: false },
-    allergies: {
-      type: Array,
-      required: false,
-      ref: "Category",
-    },
+    allergies: {  type: String, required: false },
     chronicCondtion: { type: String, required: false },
-    disability: { type: Number, default: 0, required: false },
+    disability: { type: String, default: 0, required: false },
   },
   {
     timestamps: false,
